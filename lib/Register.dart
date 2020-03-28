@@ -214,34 +214,40 @@ class _RegisterState extends State<Register> {
 //                      Scaffold.of(context)
 //                          .showSnackBar(SnackBar(content: Text('Processing Data')));
 
-                        AuthUtil.registerUser(
+                        AuthUtil.registerUserParse(
                                 emailController.text, passwordController.text)
-                            .catchError((error) {
-                          var e = error;
-                          var authError = "";
-                          print("caught error ${e.code}");
-                          switch (e.code) {
-                            case 'ERROR_INVALID_EMAIL':
-                              authError = 'Invalid Email';
-                              break;
-                            case 'ERROR_USER_NOT_FOUND':
-                              authError = 'User Not Found';
-                              break;
-                            case 'ERROR_WRONG_PASSWORD':
-                              authError = 'Wrong Password';
-                              break;
-                            case 'ERROR_EMAIL_ALREADY_IN_USE':
-                              authError =
-                                  "You have an account already, please sign in";
-                              break;
-                            default:
-                              authError = 'Error';
-                              break;
-                          }
-                          _showErrorDataDialog(context, authError);
-
-                          print('The error is $authError');
+                            .then((response) {
+                          print("response is ${response.result}");
                         });
+
+//                        AuthUtil.registerUser(
+//                                emailController.text, passwordController.text)
+//                            .catchError((error) {
+//                          var e = error;
+//                          var authError = "";
+//                          print("caught error ${e.code}");
+//                          switch (e.code) {
+//                            case 'ERROR_INVALID_EMAIL':
+//                              authError = 'Invalid Email';
+//                              break;
+//                            case 'ERROR_USER_NOT_FOUND':
+//                              authError = 'User Not Found';
+//                              break;
+//                            case 'ERROR_WRONG_PASSWORD':
+//                              authError = 'Wrong Password';
+//                              break;
+//                            case 'ERROR_EMAIL_ALREADY_IN_USE':
+//                              authError =
+//                                  "You have an account already, please sign in";
+//                              break;
+//                            default:
+//                              authError = 'Error';
+//                              break;
+//                          }
+//                          _showErrorDataDialog(context, authError);
+//
+//                          print('The error is $authError');
+//                        });
                       } else {
                         print("check errors");
                       }

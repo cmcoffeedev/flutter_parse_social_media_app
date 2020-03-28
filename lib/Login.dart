@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'AuthUtil.dart';
+import 'AuthUtil.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -163,36 +164,42 @@ class _LoginState extends State<Login> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        AuthUtil.signInUser(
+                        AuthUtil.signInUserParse(
                                 emailController.text, passwordController.text)
-                            .then((AuthResult authResult) {
-                          print("authResult is ${authResult.user.email}");
-                        }).catchError((error) {
-                          var e = error;
-                          var authError = "";
-                          print("caught error ${e.code}");
-                          switch (e.code) {
-                            case 'ERROR_INVALID_EMAIL':
-                              authError = 'Invalid Email';
-                              break;
-                            case 'ERROR_USER_NOT_FOUND':
-                              authError = 'User Not Found';
-                              break;
-                            case 'ERROR_WRONG_PASSWORD':
-                              authError = 'Wrong Password';
-                              break;
-                            case 'ERROR_EMAIL_ALREADY_IN_USE':
-                              authError =
-                                  "You have an account already, please sign in";
-                              break;
-                            default:
-                              authError = 'Error';
-                              break;
-                          }
-                          _showErrorDataDialog(context, authError);
-
-                          print('The error is $authError');
+                            .then((response) {
+                          print("sign in user response is ${response.result}");
                         });
+
+//                        AuthUtil.signInUser(
+//                                emailController.text, passwordController.text)
+//                            .then((AuthResult authResult) {
+//                          print("authResult is ${authResult.user.email}");
+//                        }).catchError((error) {
+//                          var e = error;
+//                          var authError = "";
+//                          print("caught error ${e.code}");
+//                          switch (e.code) {
+//                            case 'ERROR_INVALID_EMAIL':
+//                              authError = 'Invalid Email';
+//                              break;
+//                            case 'ERROR_USER_NOT_FOUND':
+//                              authError = 'User Not Found';
+//                              break;
+//                            case 'ERROR_WRONG_PASSWORD':
+//                              authError = 'Wrong Password';
+//                              break;
+//                            case 'ERROR_EMAIL_ALREADY_IN_USE':
+//                              authError =
+//                                  "You have an account already, please sign in";
+//                              break;
+//                            default:
+//                              authError = 'Error';
+//                              break;
+//                          }
+//                          _showErrorDataDialog(context, authError);
+//
+//                          print('The error is $authError');
+//                        });
                       } else {
                         print("check errors");
                       }

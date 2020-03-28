@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:social_media_app/Register.dart';
 
 import 'Login.dart';
@@ -35,6 +36,23 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    initParse();
+  }
+
+  initParse() async {
+    await Parse().initialize(
+      "myAppId", "https://brain.cmcoffee91.dev/parse/",
+      masterKey: "myMasterKey", // Required for Back4App and others
+      clientKey: "myClientKey", // Required for some setups
+      debug: false, // When enabled, prints logs to console
+    );
   }
 
   @override
